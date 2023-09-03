@@ -33,3 +33,13 @@ Preencher os campos do formulário
 #! Diante disso, é pedido ao Robot buscar um elemento option que contenha o termo "Programação"
 #! A opção que contém o nome "Programação" e a que eu quero que ele procure. 
     Click Element    //option[contains(.,'Programação')]
+#! Após preencher e enviar o formulário, esperamos que a pessoa colaboradora seja adicionada ao time selecionado. 
+#! No Robot, podemos usar a palavra-chave Sleep para rodar o teste mais lentamente, possibilitando o acompanhamento dos passos conforme sua execução.
+    Sleep    10s
+    Click Element    id:form-botao
+#! Element Should Be Visible (em português, "elemento deve estar visível"). Em resumo, se ele não aparecer na tela, mas estiver no código, o teste passará.
+#! o Robot considera que o elemento pode estar visível tanto na interface quanto na parte lógica
+#* Precisa já ter criado um card no organo!
+    Element Should Be Visible    class:colaborador
+#! Coloca também para mostrar clicando no botão
+    Sleep    5s
