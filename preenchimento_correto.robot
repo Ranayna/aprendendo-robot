@@ -32,7 +32,7 @@ Verificar se ao preencher os campos do formulário corretamente os dados são in
     E clique no botão criar card 
     Então identificar o card dentro do time esperado
 
-
+#! Com keywords podemos escrever conforme o que é usado em BDD e trazer uma melhor forma de compreender o que está acontecendo.
 #! bloco onde se pode definir palavras chaves para chamar executar vários passos de uma vez só.
 #! Tem que estar bem no começo da linha
 *** Keywords ***
@@ -41,7 +41,7 @@ Dado que eu acesse o organo
 #! palavra-chave usada para abrir o navegador é "Open Browser"
 #! É necessário configurar qual navegador o Robot deve abrir. Por padrão, ele opta pelo Firefox
 #! Definiremos o parâmetro url e informaremos o endereço para acessar o Organo. 
-    Open Browser     ${URL}                  browser=Chrome
+    Open Browser     ${URL}                   browser=Chrome
 
 E preencha os campos do formulário
 #! "Input Text" deve preencher um campo de texto. As informações que precisamos passar são "Locator" e o "text"
