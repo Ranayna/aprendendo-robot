@@ -79,3 +79,6 @@ Então identificar o card dentro do time esperado
 # No Robot, podemos usar a palavra-chave Sleep para rodar o teste mais lentamente, possibilitando o acompanhamento dos passos conforme sua execução.
 # Coloca também para mostrar clicando no botão
 # Sleep    5s
+
+
+# Para rodar esse teste é necessario colocar no terminal: "robot preenchimento_correto.robot"
