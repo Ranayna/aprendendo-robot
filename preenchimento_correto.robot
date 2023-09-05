@@ -42,6 +42,12 @@ Verificar se ao preencher os campos do formulário corretamente os dados são in
     E clique no botão criar card 
     Então identificar o card dentro do time esperado
 
+Verificar se é possível criar mais de um card se preenchermos os campos corretamente
+# Esse teste vai se repetir os mesmos passos de antes, mas ele vai rodar algumas vezes. 
+    Dado que preencha os campos do formulário    
+    E clique no botão criar card
+    Então identificar 3 cards no time esperado
+
 # Com keywords podemos escrever conforme o que é usado em BDD e trazer uma melhor forma de compreender o que está acontecendo.
 # bloco onde se pode definir palavras chaves para chamar executar vários passos de uma vez só.
 # Tem que estar bem no começo da linha
@@ -73,12 +79,20 @@ Então identificar o card dentro do time esperado
 # Element Should Be Visible (em português, "elemento deve estar visível"). Em resumo, se ele não aparecer na tela, mas estiver no código, o teste passará.
 # o Robot considera que o elemento pode estar visível tanto na interface quanto na parte lógica
 #* Precisa já ter criado um card no organo!
-    Element Should Be Visible    class:colaborador
-
-# Para que serve o sleep
+    Element Should Be Visible    class:
+    
+Então identificar 3 cards no time esperado
+#Usamos um FOR ${1} IN RANGE: Sendo um laço que tem 2 contadores. 
+# Vai começar do numero "1" e terminar no "3"
+# Ele vai executar 3 vezes e encerrar no comando "END" no final. 
+    FOR    ${i}    IN RANGE    1    3    
+        Dado que preencha os campos do formulário
+        E clique no botão criar card 
+    END
 # No Robot, podemos usar a palavra-chave Sleep para rodar o teste mais lentamente, possibilitando o acompanhamento dos passos conforme sua execução.
-# Coloca também para mostrar clicando no botão
-# Sleep    5s
+    Sleep    10s
 
 
-# Para rodar esse teste é necessario colocar no terminal: "robot preenchimento_correto.robot"
+
+# Para rodar esse teste é necessario colocar no terminal:
+# "robot preenchimento_correto.robot"
