@@ -5,13 +5,23 @@
 # biblioteca Selenium Library
 # Toda vez que formos passar um argumento ou parâmetro no Robot, é necessário usar ao menos dois espaços
 Library         SeleniumLibrary
+
+# Library que tem como função fazer a massa de dados e criar nome, cargos e etc fakes. 
+# Podemos configurar os dados vindos da FakerLibrary conforme o formato desejado. 
+# Precisamos de dados do Brasil: nomes brasileiros e cargos que existem aqui 
+# (e também seria o caso para outros tipos de dados como CEP, endereços, etc.). Para isso é necessario usar o "locale=pt_BR"
+# Fazendo essa configuração em Settings não será necessario corrigir depois. Essa configuração é bem util para quando tiver usando CEP e CPF por exemplo. 
+Library        FakerLibrary    locale=pt_BR
+
 # insere aqui o caminho para acessar o arquivo "setup_teardown"
 # se estivesse em outro diretorio colocariamos o caminho completo (ex: ../diretorio/)
 Resource        setup_teardown.robot
+
 # permite que o padrão de acontecimento se repita no início de cada teste. 
 # toda vez que ele iniciar, ele vai ter que voltar de novo.
 # Essa ação irá se repetir toda vez que iniciar o teste 
 Test Setup      Dado que eu acesse o organo
+
 # Essa ação vai acontecer toda vez que iniciar o teste
 Test Teardown   Fechar o navegaor
 
@@ -57,9 +67,18 @@ Dado que preencha os campos do formulário
 # "Input Text" deve preencher um campo de texto. As informações que precisamos passar são "Locator" e o "text"
 # "locator" é o elemento HTML que selecionaremos no painel de inspeção do navegador. 
 # O text é o dado com o qual preencheremos o campo.
-    Input Text       ${CAMPO_NOME}            Akemi
-    Input Text       ${CAMPO_CARGO}           Desenvolvedora
-    Input Text       ${CAMPO_IMAGEM}          https://picsum.photos/200/300
+
+# Quando se cria uma variavel local, ela só vai funcionar dentro daquele bloco de codigo, ou seja,
+#  só vai funcionar aqui na keywords
+# .First Name = cria um primeiro nome. 
+    ${Nome}          FakerLibrary.First Name              
+    Input Text       ${CAMPO_NOME}            ${Nome}
+# .Job = cria um cargo
+    ${Cargo}         FakerLibrary.Job        
+    Input Text       ${CAMPO_CARGO}           ${Cargo}
+#.Image Url = cria uma imagem aleatoria
+    ${Imagem}        FakerLibrary.Image Url
+    Input Text       ${CAMPO_IMAGEM}          ${Imagem}
 # O próximo elemento requer a seleção de um cargo de uma lista ( em vez de preencher um input, vamos clicar em um elemento e selecionar uma opção)
 # Click Element requer apenas o locator.
 # Não temos o ID, então usaremos a "class="lista-suspensa"" no lugar do locator.
@@ -79,7 +98,7 @@ Então identificar o card dentro do time esperado
 # Element Should Be Visible (em português, "elemento deve estar visível"). Em resumo, se ele não aparecer na tela, mas estiver no código, o teste passará.
 # o Robot considera que o elemento pode estar visível tanto na interface quanto na parte lógica
 #* Precisa já ter criado um card no organo!
-    Element Should Be Visible    class:
+    Element Should Be Visible    class:colaborador
     
 Então identificar 3 cards no time esperado
 #Usamos um FOR ${1} IN RANGE: Sendo um laço que tem 2 contadores. 
