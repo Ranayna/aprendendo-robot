@@ -35,13 +35,17 @@ ${CAMPO_CARGO}     id:form-cargo
 ${CAMPO_IMAGEM}    id:form-imagem
 ${CAMPO_TIME}      class:lista-suspensa
 ${CAMPO_CARD}      id:form-botao 
-${PROGRAMACAO}     //option[contains(.,'Programação')]
-${FRONT-END}       //option[contains(.,'Front-End')]
-${DADOS}           //option[contains(.,'Data Science')]
-${DEVOPS}          //option[contains(.,'Devops')]
-${UX}              //option[contains(.,'UX e Design')]
-${MOBILE}          //option[contains(.,'Mobile')]
-${INOVACAO}        //option[contains(.,'Inovação')]
+# Na sintaxe do Robot, criamos a lista digitando um @, abrindo chaves e inserindo entre elas o seu nome. 
+@{selecionar_times}
+# Para trazê-las, trocaremos o nome de cada variável por ...
+# os seus valores serão sempre nomeados com ..., seguido de Tab(ou dois espaços) e o valor de sua posição na lista.
+...        //option[contains(.,'Programação')]
+...        //option[contains(.,'Front-End')]
+...        //option[contains(.,'Data Science')]
+...        //option[contains(.,'Devops')]
+...        //option[contains(.,'UX e Design')]
+...        //option[contains(.,'Mobile')]
+...        //option[contains(.,'Inovação')]
 
 # caso de teste. Aqui começamos a desenvolver os testes. 
 *** Test Cases ***
@@ -50,13 +54,18 @@ Verificar se ao preencher os campos do formulário corretamente os dados são in
     
     Dado que preencha os campos do formulário
     E clique no botão criar card 
-    Então identificar o card dentro do time esperado
+    Então identificar 3 cards dentro do time esperado
 
 Verificar se é possível criar mais de um card se preenchermos os campos corretamente
 # Esse teste vai se repetir os mesmos passos de antes, mas ele vai rodar algumas vezes. 
     Dado que preencha os campos do formulário    
     E clique no botão criar card
     Então identificar 3 cards no time esperado
+
+Verificar se é possível criar um card para cada time disponível se preenchermos os campos corretamente 
+    Dado que preencha os campos do formulário
+    Então criar e identificar 1 card em cada time disponível 
+
 
 # Com keywords podemos escrever conforme o que é usado em BDD e trazer uma melhor forma de compreender o que está acontecendo.
 # bloco onde se pode definir palavras chaves para chamar executar vários passos de uma vez só.
@@ -94,7 +103,7 @@ E clique no botão criar card
 # Após preencher e enviar o formulário, esperamos que a pessoa colaboradora seja adicionada ao time selecionado. 
     Click Element    ${CAMPO_CARD}
 
-Então identificar o card dentro do time esperado
+Então identificar 3 cards dentro do time esperado
 # Element Should Be Visible (em português, "elemento deve estar visível"). Em resumo, se ele não aparecer na tela, mas estiver no código, o teste passará.
 # o Robot considera que o elemento pode estar visível tanto na interface quanto na parte lógica
 #* Precisa já ter criado um card no organo!
@@ -112,6 +121,14 @@ Então identificar 3 cards no time esperado
     Sleep    10s
 
 
+Então criar e identificar 1 card em cada time disponível
+# Este laço contará cada posição acessada e implementará o que queremos consoante ao objeto 
+# desejado naquela posição, e passará para a linha de baixo. Ou seja, sempre serão considerados 
+# o número e a posição para execução.
+    FOR    ${index}    ${element}    IN ENUMERATE    @{LIST}
+        Log    ${index}: ${element}
+        
+    END
 
 # Para rodar esse teste é necessario colocar no terminal:
 # "robot preenchimento_correto.robot"
