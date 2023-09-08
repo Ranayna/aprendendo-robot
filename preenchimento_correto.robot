@@ -86,7 +86,9 @@ Dado que preencha os campos do formulário
     ${Cargo}         FakerLibrary.Job        
     Input Text       ${CAMPO_CARGO}           ${Cargo}
 #.Image Url = cria uma imagem aleatoria
-    ${Imagem}        FakerLibrary.Image Url
+#width=100: largura
+# height=100: altura
+    ${Imagem}        FakerLibrary.Image Url    width=100   height=100
     Input Text       ${CAMPO_IMAGEM}          ${Imagem}
 # O próximo elemento requer a seleção de um cargo de uma lista ( em vez de preencher um input, vamos clicar em um elemento e selecionar uma opção)
 # Click Element requer apenas o locator.
@@ -97,7 +99,9 @@ Dado que preencha os campos do formulário
 # Não temos nenhum ID e nenhuma classe para usar como locator de uma opção da lista!
 # Diante disso, é pedido ao Robot buscar um elemento option que contenha o termo "Programação"
 # A opção que contém o nome "Programação" e a que eu quero que ele procure. 
-    Click Element    ${PROGRAMACAO}
+# Como foi criado a lista de time a variavel "programação" não existe mais
+# Sendo assim, é passado a lista ${selecionar_times} a ser percorrida junto da posição [0] que corresponde à opção "Programação".
+    Click Element    ${selecionar_times}[0]
 
 E clique no botão criar card 
 # Após preencher e enviar o formulário, esperamos que a pessoa colaboradora seja adicionada ao time selecionado. 
@@ -124,11 +128,16 @@ Então identificar 3 cards no time esperado
 Então criar e identificar 1 card em cada time disponível
 # Este laço contará cada posição acessada e implementará o que queremos consoante ao objeto 
 # desejado naquela posição, e passará para a linha de baixo. Ou seja, sempre serão considerados 
-# o número e a posição para execução.
-    FOR    ${index}    ${element}    IN ENUMERATE    @{LIST}
-        Log    ${index}: ${element}
-        
+# o número e a posição para execução para baixar para a linha de baixo. 
+# ${indice} = ele percorrerá o índice da lista e selecionará o elemento (element) conforme este critério.
+# ${time} = o time da lista   
+    FOR    ${index}    ${time}    IN ENUMERATE    @{selecionar_times}
+        Dado que preencha os campos do formulário
+        # o locator que iremos passar é o time de acordo com a posição que ele se encontra
+        Click Element    ${time}
+        E clique no botão criar card
     END
 
+    Sleep    10s
 # Para rodar esse teste é necessario colocar no terminal:
 # "robot preenchimento_correto.robot"
