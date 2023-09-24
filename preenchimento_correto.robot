@@ -90,6 +90,7 @@ Dado que preencha os campos do formulário
 # height=100: altura
     ${Imagem}        FakerLibrary.Image Url    width=100   height=100
     Input Text       ${CAMPO_IMAGEM}          ${Imagem}
+
 # O próximo elemento requer a seleção de um cargo de uma lista ( em vez de preencher um input, vamos clicar em um elemento e selecionar uma opção)
 # Click Element requer apenas o locator.
 # Não temos o ID, então usaremos a "class="lista-suspensa"" no lugar do locator.
