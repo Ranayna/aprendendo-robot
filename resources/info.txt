@@ -1,0 +1,1 @@
+ Pasta "resources" - onde concentramos a parte lógica do projeto

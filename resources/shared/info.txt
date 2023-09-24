@@ -1,0 +1,3 @@
+Pasta "shared" - onde concentramos as configurações padrões compartilhadas.
+
+Aqui vai concentrar o que vai ser compartilhado em relação às configurações iniciais.

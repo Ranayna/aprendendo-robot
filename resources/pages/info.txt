@@ -1,0 +1,1 @@
+Pasta "pages" - onde concentramos os elementos/configuração das nossas páginas sendo testadas;
