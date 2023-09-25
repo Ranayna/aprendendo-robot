@@ -1,6 +1,6 @@
 # padrão de iniciação
 *** Settings ***
-Library   SeleniumLibrary
+Resource    ../main.robot
 
 
 # O robot permite somente usar palavras-chave
